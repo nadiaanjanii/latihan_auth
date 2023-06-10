@@ -12,7 +12,8 @@ class Products with ChangeNotifier {
 
   List<Product> get allProduct => _allProduct;
 
-  Future<void> addProduct(String title, String price) async {
+  Future<void> addProduct(
+      String title, String price, BuildContext context) async {
     Uri url = Uri.parse("$urlMaster/products.json");
     DateTime dateNow = DateTime.now();
     try {
@@ -38,6 +39,7 @@ class Products with ChangeNotifier {
         );
 
         _allProduct.add(data);
+        Navigator.pop(context);
         notifyListeners();
       }
     } catch (err) {

@@ -22,23 +22,37 @@ class _LoginPageState extends State<LoginPage> {
   Future<String?> _authUserSigUp(SignupData data) {
     debugPrint('Name: ${data.name}, Password: ${data.password}');
     return Future.delayed(loginTime).then(
-      (_) {
-        //benerin error The argument type 'String?' can't be assigned to the parameter type 'String'
-        //yang seharusnya kurang nambahin tanda "!"
-        Provider.of<AuthProvider>(context, listen: false)
-            .signup(data.name!, data.password!);
+      (_) async {
+        try {
+          //benerin error The argument type 'String?' can't be assigned to the parameter type 'String'
+          //yang seharusnya kurang nambahin tanda "!"
+          await Provider.of<AuthProvider>(context, listen: false)
+              .signup(data.name!, data.password!);
+        } catch (err) {
+          print(err);
+          return err.toString();
+        }
+
         return "";
       },
     );
   }
 
-  Future<String?> _authUserLogin(LoginData data) {
+  Future<String?> _authUserLogin(LoginData data) async {
     debugPrint('Name: ${data.name}, Password: ${data.password}');
     return Future.delayed(loginTime).then(
-      (_) {
-        Provider.of<AuthProvider>(context, listen: false)
-            .login(data.name, data.password);
-        return null;
+      (_) async {
+        try {
+          //benerin error The argument type 'String?' can't be assigned to the parameter type 'String'
+          //yang seharusnya kurang nambahin tanda "!"
+          await Provider.of<AuthProvider>(context, listen: false)
+              .login(data.name!, data.password!);
+        } catch (err) {
+          print(err);
+          return err.toString();
+        }
+
+        return "";
       },
     );
   }

@@ -27,27 +27,9 @@ class _HomePageState extends State<HomePage> {
         });
       }).catchError(
         (err) {
-          print(err);
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: Text("Error Occured"),
-                content: Text(err.toString()),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        isLoading = false;
-                      });
-                      Navigator.pop(context);
-                    },
-                    child: Text("Okay"),
-                  ),
-                ],
-              );
-            },
-          );
+          setState(() {
+            isLoading = false;
+          });
         },
       );
 

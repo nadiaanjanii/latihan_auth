@@ -13,7 +13,7 @@ class AddProductPage extends StatelessWidget {
   Widget build(BuildContext context) {
     void save(String title, String price) {
       Provider.of<Products>(context, listen: false)
-          .addProduct(title, price)
+          .addProduct(title, price, context)
           .catchError((onError) {
         print(onError);
         return showDialog(
