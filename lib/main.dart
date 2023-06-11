@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:latihan_authentication/pages/home_page.dart';
 
 import 'package:provider/provider.dart';
 import './pages/auth_page.dart';
@@ -19,17 +20,20 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (ctx) => AuthProvider(),
         ),
-        ChangeNotifierProvider(
-          create: (ctx) => Products(),
-        ),
+        ChangeNotifierProxyProvider<AuthProvider, Products>(
+            create: (context) => Products(),
+            update: (context, auth, products) =>
+                products!..updateData(auth.token))
       ],
-      builder: (context, child) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: LoginPage(),
-        routes: {
-          AddProductPage.route: (ctx) => AddProductPage(),
-          EditProductPage.route: (ctx) => EditProductPage(),
-        },
+      builder: (context, child) => Consumer<AuthProvider>(
+        builder: (context, auth, child) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: auth.isAuthProvider ? HomePage() : LoginPage(),
+          routes: {
+            AddProductPage.route: (ctx) => AddProductPage(),
+            EditProductPage.route: (ctx) => EditProductPage(),
+          },
+        ),
       ),
     );
   }

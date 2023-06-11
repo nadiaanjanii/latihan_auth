@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:provider/provider.dart';
-import './home_page.dart';
+// import './home_page.dart';
 import '../providers/auth.dart';
 
 const users = const {
@@ -83,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
       if (!users.containsKey(name)) {
         return 'User not exists';
       }
-      return null!;
+      return "";
     });
   }
 
@@ -94,9 +94,10 @@ class _LoginPageState extends State<LoginPage> {
       onLogin: _authUserLogin,
       onSignup: _authUserSigUp,
       onSubmitAnimationCompleted: () {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => HomePage(),
-        ));
+        Provider.of<AuthProvider>(context, listen: false).temDate();
+        // Navigator.of(context).pushReplacement(MaterialPageRoute(
+        //   builder: (context) => HomePage(),
+        // ));
       },
       onRecoverPassword: _recoverPassword,
     );

@@ -7,14 +7,21 @@ import 'package:intl/intl.dart';
 import '../models/product.dart';
 
 class Products with ChangeNotifier {
-  String urlMaster = "https://authentication-lat-default-rtdb.firebaseio.com";
+  String? token;
+
+  void updateData(tokenData) {
+    token = tokenData;
+    notifyListeners();
+  }
+
+  String urlMaster = "https://authentication-lat-default-rtdb.firebaseio.com/";
   List<Product> _allProduct = [];
 
   List<Product> get allProduct => _allProduct;
 
   Future<void> addProduct(
       String title, String price, BuildContext context) async {
-    Uri url = Uri.parse("$urlMaster/products.json");
+    Uri url = Uri.parse("$urlMaster/products.json?auth=$token!");
     DateTime dateNow = DateTime.now();
     try {
       var response = await http.post(
@@ -27,8 +34,10 @@ class Products with ChangeNotifier {
         }),
       );
 
+      var responseData = json.decode(response.body);
+
       if (response.statusCode > 300 || response.statusCode < 200) {
-        throw (response.statusCode);
+        throw (responseData['error']['message']);
       } else {
         Product data = Product(
           id: json.decode(response.body)["name"].toString(),
@@ -48,7 +57,7 @@ class Products with ChangeNotifier {
   }
 
   void editProduct(String id, String title, String price) async {
-    Uri url = Uri.parse("$urlMaster/products/$id.json");
+    Uri url = Uri.parse("$urlMaster/products/$id.json?auth=$token!");
     DateTime date = DateTime.now();
     try {
       var response = await http.patch(
@@ -75,7 +84,7 @@ class Products with ChangeNotifier {
   }
 
   void deleteProduct(String id) async {
-    Uri url = Uri.parse("$urlMaster/products/$id.json");
+    Uri url = Uri.parse("$urlMaster/products/$id.json?auth=$token!");
 
     try {
       var response = await http.delete(url);
@@ -96,7 +105,7 @@ class Products with ChangeNotifier {
   }
 
   Future<void> inisialData() async {
-    Uri url = Uri.parse("$urlMaster/products.json");
+    Uri url = Uri.parse("$urlMaster/products.json?auth=$token!");
 
     try {
       var response = await http.get(url);
