@@ -20,7 +20,7 @@ class Products with ChangeNotifier {
   List<Product> get allProduct => _allProduct;
 
   Future<void> addProduct(
-      String title, String price, BuildContext context) async {
+      String title, int price, BuildContext context) async {
     Uri url = Uri.parse("$urlMaster/products.json?auth=$token!");
     DateTime dateNow = DateTime.now();
     try {
@@ -56,7 +56,7 @@ class Products with ChangeNotifier {
     }
   }
 
-  void editProduct(String id, String title, String price) async {
+  void editProduct(String id, String title, int price) async {
     Uri url = Uri.parse("$urlMaster/products/$id.json?auth=$token!");
     DateTime date = DateTime.now();
     try {

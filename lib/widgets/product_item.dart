@@ -6,11 +6,12 @@ import '../providers/products.dart';
 import '../pages/edit_product_page.dart';
 
 class ProductItem extends StatelessWidget {
-  final String id, title, price;
+  final String id, title;
+  final int price;
 
   final DateTime updatedAt;
 
-  ProductItem(this.id, this.title, this.price, this.updatedAt);
+  const ProductItem(this.id, this.title, this.price, this.updatedAt);
 
   @override
   Widget build(BuildContext context) {

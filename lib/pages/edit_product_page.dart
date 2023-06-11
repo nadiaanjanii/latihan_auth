@@ -17,9 +17,9 @@ class EditProductPage extends StatelessWidget {
     final TextEditingController titleController =
         TextEditingController(text: selectedProduct.title);
     final TextEditingController priceController =
-        TextEditingController(text: selectedProduct.price.toInt());
+        TextEditingController(text: selectedProduct.price.toString());
 
-    void edit(String title, String price) {
+    void edit(String title, int price) {
       prov.editProduct(prodId, title, price);
       Navigator.pop(context);
     }
@@ -30,7 +30,7 @@ class EditProductPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.save),
-            onPressed: () => edit(titleController.text, priceController.text),
+            onPressed: () => edit(titleController.text,int.parse(priceController.text) ),
           ),
         ],
       ),
@@ -73,7 +73,7 @@ class EditProductPage extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 30),
               child: ElevatedButton(
                 onPressed: () =>
-                    edit(titleController.text, priceController.text),
+                    edit(titleController.text, int.parse(priceController.text)),
                 child: Text(
                   "Edit",
                   style: TextStyle(

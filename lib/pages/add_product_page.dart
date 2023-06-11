@@ -11,7 +11,7 @@ class AddProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void save(String title, String price) {
+    void save(String title, int price) {
       try {
         Provider.of<Products>(context, listen: false)
             .addProduct(title, price, context)
@@ -40,7 +40,7 @@ class AddProductPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.save),
-            onPressed: () => save(titleController.text, priceController.text),
+            onPressed: () => save(titleController.text, int.parse(priceController.text)),
           ),
         ],
       ),
@@ -83,7 +83,7 @@ class AddProductPage extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 30),
               child: ElevatedButton(
                 onPressed: () =>
-                    save(titleController.text, priceController.text),
+                    save(titleController.text,int.parse(priceController.text) ),
                 child: Text(
                   "Save",
                   style: TextStyle(
