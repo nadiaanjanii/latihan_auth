@@ -17,7 +17,7 @@ class EditProductPage extends StatelessWidget {
     final TextEditingController titleController =
         TextEditingController(text: selectedProduct.title);
     final TextEditingController priceController =
-        TextEditingController(text: selectedProduct.price);
+        TextEditingController(text: selectedProduct.price.toInt());
 
     void edit(String title, String price) {
       prov.editProduct(prodId, title, price);

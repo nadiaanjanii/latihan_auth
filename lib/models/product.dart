@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Product {
-  String id, title, price;
+  String id, title;
+  int price;
   DateTime createdAt, updatedAt;
 
   Product({
